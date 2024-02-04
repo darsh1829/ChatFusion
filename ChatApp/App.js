@@ -1,3 +1,4 @@
+
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from "react";
 import { StyleSheet, Text, View } from 'react-native';
@@ -35,7 +36,8 @@ function App() {
         <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="signIn" component={SignIn} />
         </Stack.Navigator>
-      ):<Text>Hi User!</Text>}
+      ):<Text>Hi User! </Text>
+         }
     </NavigationContainer>
   );
 }
@@ -49,8 +51,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
-
 function Main(){
   const [assets] = useAssets(
     require("./assets/welcome.png"),
@@ -58,9 +58,10 @@ function Main(){
   if(!assets) {
     return <Text>Loading ...</Text>;
   }
-  return <ContextWrapper>
+  return (
+  <ContextWrapper>
   <App />
-  </ContextWrapper> ;
+  </ContextWrapper> );
 }
 
 export default Main
