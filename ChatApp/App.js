@@ -21,12 +21,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Main(){
+function Main(){
   const [assets] = useAssets(
-  
+    require("./assets/icon-square.png"),
+    require("./assets/chatbg.png"),
+    require("./assets/user-icon.png"),
+    require("./assets/welcome-img.png")
   );
   if(!assets){
     return <Text>Loading ..</Text>;
   }
   return <App/>;
 }
+
+export default Main
