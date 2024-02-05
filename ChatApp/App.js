@@ -1,3 +1,10 @@
+/**
+ * @file App.js
+ * @description The files is main file in the project and it contains main function which will be called every time project is started. 
+ * @author Ahmed Tazwar, Darsh Chirag Padaria, Darsh Vijaykumar Patel, Usama Sidat
+ * @date 26th January, 2024
+ */
+
 import { Text, View } from 'react-native';
 import React, {useState, useEffect, LogBox} from 'react';
 import {useAssets} from 'expo-asset'

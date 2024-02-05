@@ -1,3 +1,10 @@
+/**
+ * @file SignIn.js
+ * @description The files contains code to handle signin functionality and signin UI section of Chat Fusion
+ * @author Ahmed Tazwar, Darsh Chirag Padaria, Darsh Vijaykumar Patel, Usama Sidat
+ * @date 26th January, 2024
+ */
+
 import React, {useContext, useState} from 'react'
 import {View, Text, Image, TextInput, Button, Platform} from 'react-native'
 import Context from '../Context/context'
