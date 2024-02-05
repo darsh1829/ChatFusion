@@ -1,6 +1,6 @@
 //firebase.js implements all the database setup for ChatFusion
 //
-import { initializeApp } from "firebase";
+import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from "firebase/firestore";
