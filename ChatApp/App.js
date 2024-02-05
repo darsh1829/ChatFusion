@@ -6,6 +6,7 @@ import { auth } from './firebase';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SignIn from './screens/SignIn';
+import ContextWrapper from './Context/contextWrapper';
 
 function App() {
   const [currUser, setCurrUser] = useState(null);
@@ -48,7 +49,7 @@ function Main(){
   if(!assets){
     return <Text>Loading ..</Text>;
   }
-  return <App/>;
+  return <ContextWrapper><App/></ContextWrapper>;
 }
 
 export default Main

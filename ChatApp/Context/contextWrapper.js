@@ -6,8 +6,8 @@
  */
 
 import React from "react";
-import Context from './context';
-import { theme } from "../ChatApp/utils";
+import Context from './context'
+import {theme} from "../utils"
 
 export default function ContextWrapper(props){
     return(
