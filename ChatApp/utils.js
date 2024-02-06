@@ -1,6 +1,8 @@
 /**
  * @file utils.js
- * @description This file includes a color palette and theme configuration for the ChatFusion application, providing a consistent look and feel across the app. The theme object defined here is utilized throughout the application to ensure a cohesive design language.
+ * @description This file includes a color palette and theme configuration for the
+ *  ChatFusion application, providing a consistent look and feel across the app. 
+ *  The theme object defined here is utilized throughout the application to ensure a cohesive design language.
  * @author Ahmed Tazwar, Darsh Chirag Padaria, Darsh Vijaykumar Patel, Usama Sidat
  * @date 3rd February, 2024
  */
