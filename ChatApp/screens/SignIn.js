@@ -5,18 +5,26 @@
  * @date 26th January, 2024
  */
 
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import {View, Text, Image, TextInput, Button, Platform} from 'react-native'
 import Context from '../Context/context'
 import { signIn, signUp } from '../firebase'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+
 export default function SignIn(){
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const [mode,setMode] = useState("signUp")
+    const [refreshKey, setRefreshKey] = useState(0) //state initialised with a default value of refreshkey as 0
 
     //Importing color themes
     const {theme: {colors}} = useContext(Context)
+
+    /*Using useEffect hook to increment the value by 1 everytime the email or password field is updated
+    This is done because everytime the key prop is updated in react, it forces the page to re render, so that the enable and disable functionality displays accurately in the UI*/
+    useEffect(() => {
+        setRefreshKey(prevKey => prevKey + 1);
+    }, [email, password])
 
     //Handles the sign up button
     async function handlePress(){
@@ -70,14 +78,25 @@ export default function SignIn(){
                     }}/>
             </View>
             {/* Renders the Sign Up/Log in button depending on the mode*/}
-            <View style={{marginTop:20}}>
-                <Button 
-                    title={mode === "signUp" ? "Sign Up" : "Log in"} 
-                    color={colors.secondary} 
-                    onPress={handlePress}
-                    disabled={!password || !email}
-                />
-            </View>
+            <TouchableOpacity
+                key={refreshKey} // Used refreshKey here to force re-render as explained above in the useEffect hook
+                onPress={handlePress}
+                style={[
+                    {
+                        backgroundColor: colors.secondary,
+                        padding: 10,
+                        borderRadius: 5,
+                        width: 200,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: 20,
+                    },
+                    !(email.length > 0 && password.length > 0) ? { opacity: 0.5 } : {}
+                ]}
+                disabled={!(email.length > 0 && password.length > 0)}
+            >
+                <Text style={{ color: colors.white }}>{mode === "signUp" ? "Sign Up" : "Log in"}</Text>
+            </TouchableOpacity>
             {/*Renders a pressable line of text which changes mode to from Sign In to Log In */}
             <TouchableOpacity 
                 style={{marginTop: 15}} 
