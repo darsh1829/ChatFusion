@@ -16,10 +16,12 @@ import SignIn from './screens/SignIn';
 import ContextWrapper from './Context/contextWrapper';
 
 function App() {
+  
   const [currUser, setCurrUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const Stack = createStackNavigator();
-  //
+
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setLoading(false)
@@ -29,9 +31,11 @@ function App() {
     });
     return() => unsubscribe();
   }, [])
+
   if(loading){
     return <Text>Loading....</Text>
   }
+
   return (
     <NavigationContainer>
       {!currUser ?
