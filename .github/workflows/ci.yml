@@ -36,7 +36,7 @@ jobs:
 
       - name: Install node dependencies
         run: | 
-              cd sample/sample
+              cd ChatFusion/ChatApp
               npm ci
 
       - name: Run ESLint
