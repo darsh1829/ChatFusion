@@ -1,40 +1,38 @@
-name: ci
- 
+name: CI
+
 on:
   push:
     branches:
       - main
- 
+
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
- 
+
     steps:
-      - name: Checkout Repository
+      - name: Checkout out code
         uses: actions/checkout@v3
- 
-      - name: Setup Node.js
+
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
- 
-      - name: Install Expo CLI
-        run: npm install -g expo-cli
- 
+          node-version: '18'
+
+          cache: 'npm'
+
       - name: Install Dependencies
         run: npm install
- 
-      - name: Authenticate with Expo
-        run: npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+
+      - name: Run Tests
+        run: npm test
         env:
-          EXPO_USERNAME: ${{ secrets.EXPO_USERNAME }}
-          EXPO_PASSWORD: ${{ secrets.EXPO_PASSWORD }}
- 
-      - name: Build iOS Project
-        run: npx expo build:ios --non-interactive
- 
-      - name: Build Android Project
-        run: npx expo build:android --non-interactive
- 
-      - name: Build Web Project
-        run: npx expo build:web --non-interactive
+          CI: true
+          REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
+          REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
+          REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
+          REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
+          REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}
+          REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}
+          REACT_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID}}
+      
+      # Add other steps as needed, such as building the app or deploying
