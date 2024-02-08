@@ -1,31 +1,40 @@
 name: CI
-
+ 
 on:
   push:
     branches:
       - main
-
+ 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
-
+ 
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v2
-
+ 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 18
-
-      - name: Install dependencies
+ 
+      - name: Install Expo CLI
+        run: npm install -g expo-cli
+ 
+      - name: Install Dependencies
         run: npm install
-
-      - name: Run Tests
-        run: npm test
-
-      - name: Build and Test Android
-        run: npm run android:test
-
-      - name: Build and Test iOS
-        run: npm run ios:test
+ 
+      - name: Authenticate with Expo
+        run: npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+        env:
+          EXPO_USERNAME: ${{ secrets.EXPO_USERNAME }}
+          EXPO_PASSWORD: ${{ secrets.EXPO_PASSWORD }}
+ 
+      - name: Build iOS Project
+        run: npx expo build:ios --non-interactive
+ 
+      - name: Build Android Project
+        run: npx expo build:android --non-interactive
+ 
+      - name: Build Web Project
+        run: npx expo build:web --non-interactive
