@@ -16,7 +16,7 @@ on:
 jobs:
   lint:
     # Give your job a name that will show up in the GitHub Actions web UI
-    name: CI
+    name: ESLint
     # We'll run this on a Linux (Ubuntu) VM, since we'll deploy on Linux too.
     runs-on: ubuntu-latest
     # We run these steps one after the other, and if any fail, we stop the process
@@ -36,5 +36,8 @@ jobs:
 
       - name: Install node dependencies
         run: | 
-            cd ChatFusion/ChatApp
-            npm ci
+              cd sample/sample
+              npm ci
+
+      - name: Run ESLint
+        run: npm run lint
