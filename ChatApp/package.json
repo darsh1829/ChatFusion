@@ -6,7 +6,10 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test": "jest",
+    "android:test": "react-native run-android --variant=debug",
+    "ios:test": "react-native run-ios --configuration=Debug"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.9",
