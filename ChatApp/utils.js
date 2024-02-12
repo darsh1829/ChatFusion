@@ -7,7 +7,16 @@
  * @date 3rd February, 2024
  */
 
+import * as ImagePicker from 'expo-image-picker'
 
+export async function pickImage(){
+  let result = ImagePicker.launchCameraAsync();
+  return result;
+}
+export async function askForPermission(){
+  const {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  return status;
+}
 const palette = {
     fusionBlue: "#217bff",
     fusionDarkBlue: "#1a5f99",

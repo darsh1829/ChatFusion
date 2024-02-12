@@ -16,6 +16,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SignIn from './screens/SignIn';
 import ContextWrapper from './Context/contextWrapper';
 import Context from './Context/context';
+import Profile from './screens/Profile'
 
 function App() {
   const [currUser, setCurrUser] = useState(null);
