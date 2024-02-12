@@ -14,7 +14,7 @@ export async function pickImage(){
   return result;
 }
 export async function askForPermission(){
-  const {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  const {status} = await ImagePicker.requestCameraPermissionsAsync();
   return status;
 }
 const palette = {
