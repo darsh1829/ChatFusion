@@ -7,7 +7,7 @@
 
 //Import all the necessary components from React-Native, Firebase, Expo, react-navigation.
 import { Text, View } from 'react-native';
-import React, {useState, useEffect, LogBox} from 'react';
+import React, {useState, useEffect, LogBox, useContext} from 'react';
 import {useAssets} from 'expo-asset'
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
@@ -15,10 +15,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SignIn from './screens/SignIn';
 import ContextWrapper from './Context/contextWrapper';
+import Context from './Context/context';
 
 function App() {
   const [currUser, setCurrUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const {theme: {colors}} = useContext(Context)
 
   //Create Stack navigator instance
   const Stack = createStackNavigator();
@@ -46,11 +48,30 @@ function App() {
           <Stack.Screen name = "signIn" component ={SignIn}/>
         </Stack.Navigator>
       )
-       : <Text>Hi User!</Text>}
+       : 
+       (
+       <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: colors.foreground, shadowOpacity:0,elevation:0}, headerTintColor: colors.white}}>
+          {!currUser.displayName && (
+            <Stack.Screen 
+              name="profile" 
+              component={Profile}  
+              options={{headerShown: false}}/>
+            )
+          }
+          <Stack.Screen 
+            name="home" 
+            options={{title: "Chatfusion"}} 
+            component={Home}
+          />
+       </Stack.Navigator>
+       )}
     </NavigationContainer>
   );
 }
 
+function Home(){
+  return <Text>Hi I have a profile</Text>
+}
 
 function Main(){
   //Load required assets
