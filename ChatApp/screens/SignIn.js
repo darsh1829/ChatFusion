@@ -51,7 +51,7 @@ export default function SignIn(){
             } else if (err.code === 'auth/weak-password') {
                 setError("Password is too weak.");
             } else {
-                setError("An error occurred, please try again.");
+                setError("Please check your email and password.");
             }
         }
     
