@@ -51,8 +51,8 @@ function App() {
         </Stack.Navigator>
       )
        : 
-       {/*If the current user does not have a name go to profile page else go to home page*/}
-       (
+    
+       ( 
        <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: colors.foreground, shadowOpacity:0,elevation:0}, headerTintColor: colors.white}}>
           {!currUser.displayName && (
             <Stack.Screen 

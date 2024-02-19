@@ -14,7 +14,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 export default function SignIn(){
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
-    const [mode,setMode] = useState("signUp")
+    const [mode,setMode] = useState("signIn")  //The initial state is set to "signIn" screen mode
     const [refreshKey, setRefreshKey] = useState(0) //state initialised with a default value of refreshkey as 0
     const [error, setError] = useState(""); 
 
@@ -141,7 +141,7 @@ export default function SignIn(){
                 <Text style={{
                     color: colors.white
                     }}>
-                        {mode === "signUp" ? "Sign Up" : "Log in"}
+                        {mode === "signIn" ? "Log In" : "Sign Up"}
                 </Text>
             </TouchableOpacity>
 
