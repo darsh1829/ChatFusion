@@ -41,7 +41,7 @@ export default function Profile(){
     if(!permissionStatus){
         return <Text>Loading</Text>
     }
-    //Is permission is not granted
+    //If permission is not granted
     if(permissionStatus !== "granted"){
         return <Text>You need to allow this permission</Text>
     }
