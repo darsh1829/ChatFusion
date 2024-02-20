@@ -19,6 +19,7 @@
     "@testing-library/react-native": "^12.4.3",
     "expo": "~50.0.3",
     "expo-constants": "~15.4.5",
+    "expo-contacts": "^12.8.2",
     "expo-image-picker": "^14.7.1",
     "expo-status-bar": "~1.11.1",
     "firebase": "^10.8.0",
