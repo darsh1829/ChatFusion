@@ -17,15 +17,20 @@ import SignIn from './screens/SignIn';
 import ContextWrapper from './Context/contextWrapper';
 import Context from './Context/context';
 import Profile from './screens/Profile'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Chats from "./screens/Chats";
+import Photo from "./screens/Photo";
+import { Ionicons } from '@expo/vector-icons';
+
+  //Create Stack navigator instance
+  const Stack = createStackNavigator();
+  const Tab = createMaterialTopTabNavigator();
 
 function App() {
   const [currUser, setCurrUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const {theme: {colors}} = useContext(Context)
 
-  //Create Stack navigator instance
-  const Stack = createStackNavigator();
-  //
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setLoading(false) //Set loading to false when state is determined
@@ -51,7 +56,7 @@ function App() {
         </Stack.Navigator>
       )
        : 
-       {/*If the current user does not have a name go to profile page else go to home page*/}
+       
        (
        <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: colors.foreground, shadowOpacity:0,elevation:0}, headerTintColor: colors.white}}>
           {!currUser.displayName && (
@@ -63,7 +68,7 @@ function App() {
           }
           <Stack.Screen 
             name="home" 
-            options={{title: "Chatfusion"}} 
+            options={{title: "Chatfusion", headerTitleAlign: 'left'}} 
             component={Home}
           />
        </Stack.Navigator>
@@ -73,7 +78,34 @@ function App() {
 }
 
 function Home(){
-  return <Text>Hi I have a profile</Text>
+  const {theme: {colors}} = useContext(Context)
+  return (<Tab.Navigator screenOptions={({route}) =>{
+            return { tabBarLabel: () =>{
+              if(route.name === 'photo'){
+                return <Ionicons name="camera" size={20} color={colors.white}/>
+              }
+              else{
+                return <Text style={{color: colors.white}}>{route.name.toLocaleUpperCase()}</Text>
+              }
+            } ,
+            tabBarShowIcon: true,
+            tabBarLabelStyle:{
+              color: colors.white
+            },
+            tabBarIndicatorStyle:{
+              backgroundColor: colors.white
+            },
+            tabBarStyle:{
+              backgroundColor: colors.foreground
+            }
+          }
+          }} 
+          initialRouteName="chats"
+          >
+           <Tab.Screen name="photo" component={Photo}/>
+           <Tab.Screen name="chats" component={Chats}/>
+         </Tab.Navigator>
+         )
 }
 
 function Main(){

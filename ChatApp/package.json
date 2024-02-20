@@ -12,6 +12,8 @@
     "ios:test": "react-native run-ios --configuration=Debug"
   },
   "dependencies": {
+    "@react-navigation/core": "^6.4.10",
+    "@react-navigation/material-top-tabs": "^6.6.6",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",
     "@testing-library/react-native": "^12.4.3",
@@ -20,9 +22,11 @@
     "expo-image-picker": "^14.7.1",
     "expo-status-bar": "~1.11.1",
     "firebase": "^10.8.0",
+    "nanoid": "^5.0.5",
     "react": "18.2.0",
     "react-native": "0.73.2",
-    "react-native-dotenv": "^3.4.9"
+    "react-native-dotenv": "^3.4.9",
+    "react-native-get-random-values": "^1.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
