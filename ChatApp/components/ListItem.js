@@ -15,7 +15,14 @@ export default function ListItem({type, description, user, style, time, room, im
         >
             <Grid style={{maxHeight: 80}}>
                 <Col style={{width:80, alignItems: "center", justifyContent:"center"}}>
-                    <Avatar/>
+                    <Avatar user={user} size={type === "contacts" ? 40 : 65}/>
+                </Col>
+                <Col style={{marginLeft: 10}}>
+                    <Row style={{alignItems: "center"}}>
+                        <Col>
+                            <Text style={{fontWeight: "bold", fontSize:16, color: colors.text}}>{user.contactName || user.displayName}</Text>
+                        </Col>
+                    </Row>
                 </Col>
             </Grid>
         </TouchableOpacity>
