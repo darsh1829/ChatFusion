@@ -5,13 +5,14 @@
  * @date 3rd February, 2024
  */
 
-import React from "react";
+import React, { useState } from "react";
 import Context from './context'
 import {theme} from "../utils"
 
 export default function ContextWrapper(props){
+    const [rooms, setRooms] = useState([])
     return(
-        <Context.Provider value={{theme}}>
+        <Context.Provider value={{theme, rooms, setRooms}}>
             {props.children}
         </Context.Provider>
     )
