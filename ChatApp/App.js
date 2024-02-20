@@ -21,6 +21,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import Chats from "./screens/Chats";
 import Photo from "./screens/Photo";
 import { Ionicons } from '@expo/vector-icons';
+import Contacts from './screens/Contacts';
 
   //Create Stack navigator instance
   const Stack = createStackNavigator();
@@ -70,6 +71,11 @@ function App() {
             name="home" 
             options={{title: "Chatfusion", headerTitleAlign: 'left'}} 
             component={Home}
+          />
+          <Stack.Screen
+            name="contacts"
+            options={{title: "Select Contacts", }}
+            component={Contacts}
           />
        </Stack.Navigator>
        )}

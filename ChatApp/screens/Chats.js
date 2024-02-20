@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from "react";
 import { Text, View } from "react-native";
 import { auth, db } from "../firebase";
 import GlobalContext from "../Context/context";
+import ContactsFloatingIcon from "../components/ContactsFloatingIcon";
 
 export default function Chats(){
     const {currentUser} = auth
@@ -25,6 +26,6 @@ export default function Chats(){
         return () => unsubscribe();
     },[])
     return(<View style={{flex: 1, padding:5, paddingRight: 10}}>
-        <Text>Chats</Text>
-    </View>)
+            <ContactsFloatingIcon/>
+        </View>)
 }
