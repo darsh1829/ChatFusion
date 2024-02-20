@@ -56,8 +56,8 @@ function App() {
         </Stack.Navigator>
       )
        : 
-       
-       (
+    
+       ( 
        <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: colors.foreground, shadowOpacity:0,elevation:0}, headerTintColor: colors.white}}>
           {!currUser.displayName && (
             <Stack.Screen 
