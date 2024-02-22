@@ -77,6 +77,10 @@ function App() {
             options={{title: "Select Contacts", }}
             component={Contacts}
           />
+          <Stack.Screen
+            name="chat"
+            options={{headerTitle: (props) => <ChatHeader {... props}/>}}
+          />
        </Stack.Navigator>
        )}
     </NavigationContainer>
