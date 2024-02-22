@@ -22,6 +22,8 @@ import Chats from "./screens/Chats";
 import Photo from "./screens/Photo";
 import { Ionicons } from '@expo/vector-icons';
 import Contacts from './screens/Contacts';
+import Chat from './screens/Chat';
+import ChatHeader from './components/ChatHeader';
 
   //Create Stack navigator instance
   const Stack = createStackNavigator();
@@ -69,17 +71,18 @@ function App() {
           }
           <Stack.Screen 
             name="home" 
-            options={{title: "Chatfusion", headerTitleAlign: 'left'}} 
+            options={{headerBackTitleVisible: false,title: "Chatfusion", headerTitleAlign: 'left'}} 
             component={Home}
           />
           <Stack.Screen
             name="contacts"
-            options={{title: "Select Contacts", }}
+            options={{headerBackTitleVisible: false,title: "Select Contacts", headerTitleAlign: 'left'}}
             component={Contacts}
           />
           <Stack.Screen
             name="chat"
-            options={{headerTitle: (props) => <ChatHeader {... props}/>}}
+            options={{headerBackTitleVisible: false,headerTitleAlign: 'left',headerTitle: (props) => <ChatHeader {... props}/>}}
+            component={Chat}
           />
        </Stack.Navigator>
        )}
