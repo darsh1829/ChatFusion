@@ -7,6 +7,7 @@ import GlobalContext from "../Context/context";
 export default function ChatHeader(){
     const route = useRoute()
     const {theme: {colors}} = useContext(GlobalContext)
+   
     return(
         <View style={{flexDirection: "row"}}>
             <View>

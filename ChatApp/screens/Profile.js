@@ -16,7 +16,7 @@ import { auth, db } from "../firebase";
 import { uploadImage } from "../utils";
 import { updateProfile } from "@firebase/auth";
 import { doc, setDoc } from "@firebase/firestore";
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Profile(){
 

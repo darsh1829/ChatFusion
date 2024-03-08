@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import {View, Text, TouchableOpacity} from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import GlobalContext from '../Context/context'
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/native'
 
 export default function ContactsFloatingIcon(){
     const {theme: {colors}} = useContext(GlobalContext)

@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/native'
 import React, { useContext } from "react"
 import { Text, View, TouchableOpacity } from "react-native"
 import GlobalContext from '../Context/context'

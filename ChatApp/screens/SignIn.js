@@ -80,9 +80,7 @@ export default function SignIn(){
             {/* Renders the Logo*/}
             <Image
                 source={require("../assets/welcome.png")}
-                style={{
-                    width:180, height:180
-            }}
+                style={{ width:180, height:180 }}
                 resizeMode="cover"
             />
 

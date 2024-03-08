@@ -81,7 +81,7 @@ function App() {
           />
           <Stack.Screen
             name="chat"
-            options={{headerBackTitleVisible: false,headerTitleAlign: 'left',headerTitle: (props) => <ChatHeader {... props}/>}}
+            options={{headerBackTitleVisible: false,headerTitleAlign: 'left',headerTitle: (props) => <ChatHeader {...props} />}}
             component={Chat}
           />
        </Stack.Navigator>

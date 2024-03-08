@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import * as Contacts from "expo-contacts"
-import { async } from "@firebase/util";
 
 export default function useContacts(){
     const [contacts, setContacts] = useState([])
