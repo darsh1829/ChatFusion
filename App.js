@@ -2,7 +2,7 @@
  * @file App.js
  * @description The files is main file in the project and it contains main function which will be called every time project is started. 
  * @author Ahmed Tazwar, Darsh Chirag Padaria, Darsh Vijaykumar Patel, Usama Sidat
- * @date 4th April, 2024
+ * @date 26th January, 2024
  */
 
 import { StatusBar } from 'expo-status-bar';
@@ -24,26 +24,28 @@ import {Ionicons, MaterialCommunityIcons} from "@expo/vector-icons"
 import Contacts from './screens/Contacts';
 import Chat from './screens/Chat';
 import ChatHeader from './components/ChatHeader';
+import UpdateProfile from './screens/updateProfile';
+
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
-
+const AuthStack = createStackNavigator();
 
 function App() {
   const [currUser, setCurrUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const {theme: {colors}} = useContext(Context)
-  
-  //Tracks authentication state changes, updating current user and loading status
   useEffect(()=> {
    const unsubscribe = onAuthStateChanged(auth, user => {
     setLoading(false)
     if(user){
       setCurrUser(user)
+      //navigation.replace("Home");
     }
-   })
+   }) 
    return () => unsubscribe();
   }, [])
+
 
   if(loading){
     return <Text>Loading ...</Text>
@@ -51,12 +53,12 @@ function App() {
 
   return (
     <NavigationContainer>
-      {!currUser ?(
-        <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name="signIn" component={SignIn} />
-        </Stack.Navigator>
+      {!currUser ? (
+        <AuthStack.Navigator screenOptions={{headerShown: false}}>
+          <AuthStack.Screen name="signIn" component={SignIn} />
+        </AuthStack.Navigator>
       ):(
-
+       
         <Stack.Navigator
         screenOptions={{headerStyle: {
          backgroundColor: colors.foreground,
@@ -66,12 +68,12 @@ function App() {
         headerTintColor: colors.white,
 
         }} >
+          
           {!currUser.displayName && (
           <Stack.Screen 
           name="Profile"
           component={Profile} 
-          options={{headerShown: false}} 
-           />
+          options={{headerShown: false}}  />
           )}
 
           <Stack.Screen 
@@ -91,15 +93,31 @@ function App() {
         component={Chat}
         options={{headerTitle: (props) => <ChatHeader {...props}/>, headerBackTitle: null,  }}
         />
+        
+        <Stack.Screen 
+        name="UpdateProfile"
+        component={UpdateProfile}
+        options={{title: "Update Profile", headerBackTitle: null, headerTitleAlign: 'center' }}
+        />
+        
+        <Stack.Screen
+         name="SignIn" 
+         component={SignIn} 
+         options={{
+          headerShown: false,  
+        }}
+        />
 
         </Stack.Navigator>
       )}
     </NavigationContainer>
+    
 
     
   );
 }
 
+//Might need to delete
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -109,7 +127,7 @@ const styles = StyleSheet.create({
   },
 });
 
-//Renders a tab navigation bar with custom icons and styles based on current theme
+
 function Home(){
   const {theme: {colors}} = useContext(Context)
   return (
@@ -146,7 +164,8 @@ function Home(){
   );
 }
 
-//Wraps the main application component (App).
+
+
 function Main(){
   const [assets] = useAssets(
     require("./assets/welcome.png"),
