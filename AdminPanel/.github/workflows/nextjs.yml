@@ -1,0 +1,63 @@
+name: Deploy Next.js site to Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: 'npm'
+          cache-dependency-path: 'my-app/package-lock.json'
+          
+      - name: Install dependencies
+        run: npm ci
+        working-directory: my-app
+        
+      - name: Build and Export the Next.js application
+        run: npm run export
+        working-directory: my-app
+
+      - name: List build directory contents (Diagnostic Step)
+        run: ls -la
+        working-directory: my-app
+
+      - name: List output directory contents (Diagnostic Step)
+        run: ls -la out/
+        working-directory: my-app
+
+        
+      - name: Upload the Next.js build output as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-pages
+          path: my-app/out/
+          
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifact_name: github-pages
+          preview: false
