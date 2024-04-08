@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { Text, View } from 'react-native';
 import * as Contacts from "expo-contacts";
 
-//Custom hook to fetch and manage contacts, returning an array of contact objects
 export function useContacts() {
   const [contacts, setContacts] = useState([]);
   useEffect(() => {
@@ -21,7 +20,7 @@ export function useContacts() {
           fields: [Contacts.Fields.Emails],
         });
         if (data.length > 0) {
-          setContacts( //Updates the contacts state with filtered and mapped contacts data.
+          setContacts(
             data
               .filter(
                 (c) =>
@@ -36,7 +35,6 @@ export function useContacts() {
   return contacts;
 }
 
-// Maps a contact object to a user object, extracting contact name and email.
 function mapContactToUser(contact) {
   return {
     contactName:
