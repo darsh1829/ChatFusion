@@ -13,7 +13,7 @@ import { storage } from "./firebase"
 const he = require('he');
 
 export async function suggestText(messages, currentUser) {
-  let prompt = "Below is a message I received. Please act as a human-like suggestive text generator and create two replies. The first reply should sound like a natural, casual disagreement with the message, expressing a negative viewpoint as if a friend is responding. The second reply should sound supportive and positive, agreeing with the message as if a friend is agreeing. Make sure both responses feel natural and conversational. Here is the message:\n"
+  let prompt = `Below is a message I received. Please act as a human-like suggestive text generator and create two replies. The first reply should sound like a natural, casual disagreement with the message, expressing a negative viewpoint as if a friend is responding. The second reply should be a supportive and positive agreement with the message, as if a friend is agreeing. Both responses should be concise, clear, and conversational—aim for a one or two sentences each. Here is the message:\n`;
  
   for (let i = messages.length - 1; i >= 0; i--) {
     if (currentUser === messages[i].user._id) {
@@ -49,6 +49,7 @@ export async function suggestText(messages, currentUser) {
     if (data.choices) {
       const replies = data.choices[0].message.content.split('\n');
       const filteredReplies = replies.filter(reply => reply.trim() !== '');
+      console.log(filteredReplies)
       const completion = [filteredReplies[1],filteredReplies[3]];
       return completion;
     }
