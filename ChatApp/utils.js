@@ -14,31 +14,30 @@ const he = require('he');
 
 export async function suggestText(messages, currentUser) {
   let prompt = "Below is a message I received. Please act as a human-like suggestive text generator and create two replies. The first reply should sound like a natural, casual disagreement with the message, expressing a negative viewpoint as if a friend is responding. The second reply should sound supportive and positive, agreeing with the message as if a friend is agreeing. Make sure both responses feel natural and conversational. Here is the message:\n"
-
+ 
   for (let i = messages.length - 1; i >= 0; i--) {
     if (currentUser === messages[i].user._id) {
       prompt += "Me: "
-    }
-    else {
+    } else {
       prompt += `${messages[i].user.name}: `
     }
     prompt += messages[i].text + "\n";
   }
-  const apiKey = "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"; // Replace this with your OpenAI API key
-  const url = "https://api.openai.com/v1/completions";
+  console.log(prompt);
+  const apiKey = "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"; // Ensure this key is securely stored in practice
+  const url = "https://api.openai.com/v1/chat/completions";
   const headers = {
     "Content-Type": "application/json",
     "Authorization": `Bearer ${apiKey}`
   };
   const body = JSON.stringify({
-    model: "gpt-3.5-turbo-instruct",
-    prompt,
+    model: "gpt-4",
+    messages: [{role: "system", content: prompt}],
     max_tokens: 150,
     temperature: 0.7,
-    n: 2,
-    stop: ["\n"]
+    n: 1
   });
-
+ 
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -46,9 +45,14 @@ export async function suggestText(messages, currentUser) {
       body
     });
     const data = await response.json();
-    const completions = data.choices.map(choice => choice.text.trim());
-    console.log(completions)
-    return completions;
+ 
+    if (data.choices) {
+      const replies = data.choices[0].message.content.split('\n');
+      const filteredReplies = replies.filter(reply => reply.trim() !== '');
+      const completion = [filteredReplies[1],filteredReplies[3]];
+      return completion;
+    }
+    return [];
   } catch (error) {
     console.error("Error generating responses:", error);
     return [];
