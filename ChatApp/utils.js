@@ -10,9 +10,10 @@ import "react-native-get-random-values";
 import { nanoid } from 'nanoid'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { storage } from "./firebase"
+const he = require('he');
 
 export async function suggestText(messages, currentUser) {
-  let prompt = "Following is the message I received. I want you to act as a suggestive text generator and give me two different replies. One should be disagree with the message and other one agree with the message.\n"
+  let prompt = "Below is a message I received. Please act as a human-like suggestive text generator and create two replies. The first reply should sound like a natural, casual disagreement with the message, expressing a negative viewpoint as if a friend is responding. The second reply should sound supportive and positive, agreeing with the message as if a friend is agreeing. Make sure both responses feel natural and conversational. Here is the message:\n"
 
   for (let i = messages.length - 1; i >= 0; i--) {
     if (currentUser === messages[i].user._id) {
@@ -46,39 +47,42 @@ export async function suggestText(messages, currentUser) {
     });
     const data = await response.json();
     const completions = data.choices.map(choice => choice.text.trim());
+    console.log(completions)
     return completions;
   } catch (error) {
     console.error("Error generating responses:", error);
     return [];
   }
 }
+
 export async function translateText(text, targetLanguage) {
-  const API_KEY = "AIzaSyCsBaakDs4Y-hbWAuAhFBrO87EtPY3NAOg"
+  const API_KEY = "AIzaSyCsBaakDs4Y-hbWAuAhFBrO87EtPY3NAOg";
   const url = `https://translation.googleapis.com/language/translate/v2?key=${API_KEY}`;
 
   const requestBody = {
-    q: text,
-    target: targetLanguage,
+      q: text,
+      target: targetLanguage,
   };
 
   try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    });
-    if (!response.ok) {
-      throw new Error('Failed to translate text');
-    }
+      const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+      });
+      if (!response.ok) {
+          throw new Error('Failed to translate text');
+      }
 
-    const data = await response.json();
-    const translations = data.data.translations.map(translation => translation.translatedText);
-    return translations[0];
+      const data = await response.json();
+      const translations = data.data.translations.map(translation => he.decode(translation.translatedText));
+      console.log(data.data.translations)
+      return translations[0];
   } catch (error) {
-    console.error('Translation error:', error);
-    return null;
+      console.error('Translation error:', error);
+      return null;
   }
 };
 
