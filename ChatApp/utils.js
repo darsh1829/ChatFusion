@@ -2,7 +2,7 @@
  * @file utils.js
  * @description N/A
  * @author Ahmed Tazwar, Darsh Chirag Padaria, Darsh Vijaykumar Patel, Usama Sidat
- * @date 26th January, 2024
+ * @date 26th March, 2024
  */
 
 import * as ImagePicker from "expo-image-picker";
